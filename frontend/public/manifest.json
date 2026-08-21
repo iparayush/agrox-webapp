@@ -1,0 +1,17 @@
+{
+  "short_name": "AGROX",
+  "name": "AGROX — Farmer to City Direct",
+  "description": "Fresh from Farmers. Fair for Farmers. Better for Cities.",
+  "icons": [
+    {
+      "src": "/agrox_logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#F7F9F5",
+  "theme_color": "#16803C",
+  "display": "standalone",
+  "orientation": "portrait"
+}
