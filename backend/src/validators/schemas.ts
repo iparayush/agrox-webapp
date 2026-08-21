@@ -14,10 +14,17 @@ export const RegisterSchema = z.object({
   role: z.enum(['CUSTOMER', 'FARMER', 'ADMIN']).default('CUSTOMER'),
 });
 
-export const LoginSchema = z.object({
-  emailOrPhone: z.string().min(3, 'Email or phone is required'),
-  password: z.string().min(1, 'Password is required'),
-});
+export const LoginSchema = z
+  .object({
+    emailOrPhone: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    password: z.string().min(1, 'Password is required'),
+  })
+  .refine((data) => data.emailOrPhone || data.email || data.phone, {
+    message: 'Email or phone number is required',
+    path: ['emailOrPhone'],
+  });
 
 export const UpdateProfileSchema = z.object({
   full_name: z.string().min(2).max(255).optional(),

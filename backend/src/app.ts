@@ -12,11 +12,11 @@ export const app = express();
 // Security headers
 app.use(helmet());
 
-// CORS
+// CORS (Allow any origin dynamically to prevent CORS issues on Vercel)
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
-    credentials: env.CORS_ORIGIN !== '*',
+    origin: true,
+    credentials: true,
   })
 );
 
@@ -68,8 +68,9 @@ app.get(['/health', '/api/health', '/api/v1/health'], (_req, res) => {
   });
 });
 
-// All V1 API routes
+// Mount routes at /api/v1, /api, and root level for maximum client compatibility
 app.use('/api/v1', routes);
+app.use('/api', routes);
 
 // 404 for unmatched routes (must be after all defined routes)
 app.use((_req, res) => {
