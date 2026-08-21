@@ -16,7 +16,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: env.CORS_ORIGIN,
-    credentials: true,
+    credentials: env.CORS_ORIGIN !== '*',
   })
 );
 
@@ -27,10 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 // Request logging
 app.use(morgan(env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
-// Global rate limiter (lenient — tighter limits on /auth below)
+// Global rate limiter (lenient)
 app.use(
   rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
+    windowMs: 15 * 60 * 1000,
     max: 500,
     standardHeaders: true,
     legacyHeaders: false,
@@ -38,11 +38,29 @@ app.use(
   })
 );
 
-// Health Check
-app.get('/api/v1/health', (_req, res) => {
+// Root greeting endpoint
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'AGROX Backend API is running',
+    version: '1.0.0',
+    environment: env.NODE_ENV,
+    endpoints: {
+      health: '/api/v1/health',
+      auth: '/api/v1/auth',
+      products: '/api/v1/products',
+      orders: '/api/v1/orders',
+      admin: '/api/v1/admin',
+    },
+  });
+});
+
+// Top-level Health Checks
+app.get(['/health', '/api/health', '/api/v1/health'], (_req, res) => {
   res.status(200).json({
     success: true,
     status: 'ok',
+    message: 'AGROX API is healthy',
     timestamp: new Date().toISOString(),
     uptime: Math.floor(process.uptime()),
     environment: env.NODE_ENV,
@@ -53,7 +71,7 @@ app.get('/api/v1/health', (_req, res) => {
 // All V1 API routes
 app.use('/api/v1', routes);
 
-// 404 for unmatched routes
+// 404 for unmatched routes (must be after all defined routes)
 app.use((_req, res) => {
   res.status(404).json({ success: false, message: 'Route not found', code: 'NOT_FOUND' });
 });

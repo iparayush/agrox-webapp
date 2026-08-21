@@ -3,7 +3,8 @@
  * Handles auth tokens, error formatting, and base URL configuration.
  */
 
-const API_BASE = import.meta.env.VITE_BACKEND_API_URL || 'http://127.0.0.1:4000/api/v1';
+const rawUrl = import.meta.env.VITE_BACKEND_API_URL || import.meta.env.VITE_API_URL || 'http://127.0.0.1:4000/api/v1';
+const API_BASE = rawUrl.endsWith('/api/v1') ? rawUrl : `${rawUrl.replace(/\/$/, '')}/api/v1`;
 
 let authToken: string | null = localStorage.getItem('agrox_token');
 
