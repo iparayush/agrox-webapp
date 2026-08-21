@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <rect width="500" height="500" rx="100" fill="#16803C"/>
+  <circle cx="250" cy="220" r="140" fill="#3FAE5A" opacity="0.3"/>
+  <path d="M250 110 C180 180 180 260 250 310 C320 260 320 180 250 110 Z" fill="#F4B942"/>
+  <path d="M250 140 Q210 210 250 280 Q290 210 250 140 Z" fill="#FFFFFF"/>
+  <text x="250" y="390" font-family="'Inter', sans-serif" font-weight="900" font-size="52" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">AGROX</text>
+  <text x="250" y="425" font-family="'Inter', sans-serif" font-weight="600" font-size="16" fill="#F4B942" text-anchor="middle">FARMER TO CITY DIRECT</text>
+</svg>
