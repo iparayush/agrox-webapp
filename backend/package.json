@@ -2,9 +2,12 @@
   "name": "agrox-backend",
   "version": "1.0.0",
   "description": "AGROX Farmer-to-City Production Backend API",
+  "type": "module",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",
+    "postinstall": "tsc",
+    "prestart": "tsc",
     "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts"
   },
