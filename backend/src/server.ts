@@ -1,10 +1,11 @@
 import { app } from './app.js';
 import { env } from './config/env.js';
 
-const PORT = env.PORT || 4000;
+const PORT = Number(process.env.PORT) || Number(env.PORT) || 4000;
+const HOST = '0.0.0.0';
 
-app.listen(PORT, () => {
-  console.log(`🚀 AGROX Backend API Server running on http://127.0.0.1:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 AGROX Backend API Server running on port ${PORT}`);
   console.log(`📡 Environment: ${env.NODE_ENV}`);
-  console.log(`🏥 Health Check: http://127.0.0.1:${PORT}/api/v1/health`);
+  console.log(`🏥 Health Check: http://0.0.0.0:${PORT}/api/v1/health`);
 });
